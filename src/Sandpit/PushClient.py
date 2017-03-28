@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 from bs4 import BeautifulSoup
 from http.server import BaseHTTPRequestHandler, HTTPServer
+import json
+from lxml import html
+from lxml import etree
 
 
 # HTTPRequestHandler class
@@ -30,8 +33,9 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
             self.end_headers()
         print("POST Packet Recieved")
         self.data_string = self.rfile.read(int(self.headers['Content-Length']))
-        soup = BeautifulSoup(self.data_string, "lxml")
-        print(soup.prettify())
+
+        soup = BeautifulSoup(self.data_string, "lxml") # Maybe these two lines aren't necessary
+        print(soup.prettify()) #See above
 
 
 def run():
@@ -44,5 +48,22 @@ def run():
     print('running server...')
     httpd.serve_forever()
 
+def ConvertJson(text):
+    #print(text)
 
-run()
+    #soup = BeautifulSoup(text, 'lxml')
+    #packet = str(soup.html.p)
+
+    data = json.loads(text)
+    print("Timestamp: {0}".format(data["Head"]["Timestamp"]))
+    print("Current Production: {0}{1}".format(data["Body"]["PAC"]["Values"]["1"],data["Body"]["PAC"]["Unit"]))
+    print("Today's Yeild: {0}{1}".format(data["Body"]["DAY_ENERGY"]["Values"]["1"],data["Body"]["DAY_ENERGY"]["Unit"]))
+    #print(data[""])
+    #print(data[""])
+
+
+
+    #print(type(obj))
+    #print(obj.tostring())
+
+#run()
