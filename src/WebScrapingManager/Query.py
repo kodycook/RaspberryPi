@@ -1,10 +1,18 @@
 import requests
 
-def scrape(URL, userTag, passTag, username, password):
+def scrape(logUrl, tarUrl, tags, heads):
 
-    values = {userTag : username,
-              passTag : password}
 
-    print(URL)
-    r = requests.post(URL, data=values)
-    print(r.content)
+    print(logUrl)
+
+    with requests.session() as c:
+        print(tarUrl)
+        #c.get(logUrl)
+        #c.post(logUrl, data=tags, headers=heads)
+        #print(c.cookies[''])
+        #c.post(logUrl, data=tags)
+        #page = c.get(tarUrl)
+        #print(page.content)
+
+    #r = requests.post(URL, data=tags)
+    #print(r.content)
