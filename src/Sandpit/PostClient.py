@@ -6,8 +6,10 @@ from lxml import html
 from lxml import etree
 
 
+
 # HTTPRequestHandler class
-class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
+class PostClient(BaseHTTPRequestHandler):
+
     # GET
     def do_GET(self):
         # Send response status code
@@ -31,21 +33,20 @@ class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
             # Send headers
             self.send_header('Content-type', 'text/html')
             self.end_headers()
-        print("POST Packet Recieved")
+        print()
         self.data_string = self.rfile.read(int(self.headers['Content-Length']))
+        ConvertJson(self.data_string)
+        #soup = BeautifulSoup(self.data_string, "lxml") # Maybe these two lines aren't necessary
 
-        soup = BeautifulSoup(self.data_string, "lxml") # Maybe these two lines aren't necessary
-        print(soup.prettify()) #See above
 
 
 def run():
-    print('starting server...')
+    print('Starting Fronius Listener')
 
     # Server settings
     # Choose port 8080, for port 80, which is normally used for a http server, you need root access
     server_address = ('10.1.1.15', 40)
-    httpd = HTTPServer(server_address, testHTTPServer_RequestHandler)
-    print('running server...')
+    httpd = HTTPServer(server_address, PostClient)
     httpd.serve_forever()
 
 def ConvertJson(text):
@@ -66,4 +67,5 @@ def ConvertJson(text):
     #print(type(obj))
     #print(obj.tostring())
 
-#run()
+
+run()
