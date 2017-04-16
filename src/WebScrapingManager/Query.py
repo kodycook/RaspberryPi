@@ -39,7 +39,9 @@ def scrape(url, userTag, passTag, user, password):
 
     response = session.post(url, data=form)
 
-    login_html = html.fromstring(response.text)
+    print(response.text)
+
+    #login_html = html.fromstring(response.text)
 
     # hidden_inputs = login_html.xpath('//html//body//form')
 

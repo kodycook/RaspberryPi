@@ -82,8 +82,8 @@ arduino = makeScraper("Yelp",
 
 
 #print(phoneUsage["URL"])
-# Query.scrape(internetUsage["url"], internetUsage["userTag"], internetUsage["userPass"], internetUsage["user"], internetUsage["password"])
+Query.scrape(internetUsage["url"], internetUsage["userTag"], internetUsage["userPass"], internetUsage["user"], internetUsage["password"])
 # Query.scrape(phoneUsage["url"], phoneUsage["userTag"], phoneUsage["userPass"], phoneUsage["user"], phoneUsage["password"])
 # Query.scrape(yelp["url"], yelp["userTag"], yelp["userPass"], yelp["user"], yelp["password"])
 # Query.scrape(banking["url"], banking["userTag"], banking["userPass"], banking["user"], banking["password"])
-Query.scrape(arduino["url"], arduino["userTag"], arduino["userPass"], arduino["user"], arduino["password"])
+# Query.scrape(arduino["url"], arduino["userTag"], arduino["userPass"], arduino["user"], arduino["password"])
