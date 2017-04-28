@@ -43,8 +43,9 @@ internetUsage = makeScraper(
      'Password':'family5',
      'action:Index':''},
     {},
-    {"Account Balance": ["div", "class", "dl-balance", 0, "span", "", "", 1],
-        "Remaining Internet": ["div", "class", "ub-bar multiple", 0]},
+    {'Account Balance': ['/html/body/div[3]/div[1]/div/div[1]/div/div/p/span[1]/text()[1]'],
+     'Remaining Internet': ['//*[@id="panels"]/div[2]/article/div[1]/div/div/div[2]/p/text()[1]'],
+     'Days Left in Billing Period':['//*[@id="panels"]/div[2]/article/div[1]/div/p/strong[2]/text()[1]']},
     24
 )
 
@@ -59,8 +60,10 @@ phoneUsage = makeScraper(
     {'USER':'masterkcook@hotmail.com',
      'PASSWORD':'Master2010'},
     {},
-    {'Phone Usage': ["span", "class", "data-left", 0],
-     'Data Usage': ["span", "class", "data-left", 1]},
+    {'Account Balance':['//*[@id="ctl00_FormContent_FullContentArea_SidebarTop_ServiceStatusViewSwitcher_ctl00_ControlSwitcher_ctl00_AccountOverviewPostpaidMobile_lblTotalOutstanding"]/text()[1]'],
+     'Phone Usage': ['//*[@id="ctl00_FormContent_FullContentArea_TopRowSection_TopRow_ButtonBar_ButtonBarPanelRepeater_ctl01_UsagePostpaidMobile_pnlPostPaidMobile"]/ul/li[1]/strong/span[1]/text()[1]'],
+     'Data Usage': ['//*[@id="ctl00_FormContent_FullContentArea_TopRowSection_TopRow_ButtonBar_ButtonBarPanelRepeater_ctl01_UsagePostpaidMobile_pnlPostPaidMobile"]/ul/li[2]/ul/li/strong/span[1]/text()'],
+     'Days Left in Billing Period': ['//*[@id="ctl00_FormContent_FullContentArea_TopRowSection_TopRow_ButtonBar_ButtonBarPanelRepeater_ctl01_UsagePostpaidMobile_pnlPostPaidMobile"]/ul/li[3]/ul/li/span/strong/text()[1]']},
     24
 )
 
@@ -133,6 +136,10 @@ virgin = makeScraper(
 
 
 #print(phoneUsage["URL"])
+print("IINET Internet Usage")
 Query.scrape(internetUsage)
-# Query.scrape(phoneUsage)
+
+print("\n")
+print("Virgin Mobile Usage")
+Query.scrape(phoneUsage)
 # Query.scrape(virgin)
