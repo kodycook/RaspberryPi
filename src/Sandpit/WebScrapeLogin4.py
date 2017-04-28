@@ -1,10 +1,12 @@
+# THIS SCRIPT PARSES THE VIRGIN MOBILE DASHBOARD
+
 import requests
 from lxml import html
 
 USERNAME = "masterkcook@hotmail.com"
 PASSWORD = "Master2010"
 
-LOGIN_URL = "https://www.virginmobile.com.au/signon/virginmobile/MyAccount.sec?TYPE=33554433&REALMOID=06-f4d534ec-0b9f-46e4-ba70-0c95eb71c44b&GUID=&SMAUTHREASON=0&METHOD=GET&SMAGENTNAME=-SM-wV0F3UxeDtkVQwAP9tgxWBkJlzSUGCHjpj5KuVKWLyEdW9ImxyCl6Wi%2byI2VpGfr3lmjvdxBBD8GKgAtWqW1Mjw0ok%2fEKu%2fL&TARGET=-SM-https%3a%2f%2fwww%2evirginmobile%2ecom%2eau%2fmyaccount%2fsecure"
+LOGIN_URL = "https://www.virginmobile.com.au/signon/virginmobile/MyAccount.sec?"
 URL = "https://www.virginmobile.com.au/myaccount/secure/Dashboard/"
 
 def main():
@@ -12,6 +14,9 @@ def main():
 
     # Get login csrf token
     result = session_requests.get(LOGIN_URL)
+
+    NEW_LOGIN_URL = result.url
+
     tree = html.fromstring(result.text)
     authenticity_token = list(set(tree.xpath("//input[@name='smagentname']/@value")))[0]
 
@@ -20,12 +25,11 @@ def main():
     # Create payload
     payload = {
         "USER": USERNAME,
-        "PASSWORD": PASSWORD,
-        "smagentname": authenticity_token
+        "PASSWORD": PASSWORD
     }
 
     # Perform login
-    result = session_requests.post(LOGIN_URL, data = payload, headers = dict(referer = LOGIN_URL))
+    result = session_requests.post(NEW_LOGIN_URL, data = payload, headers = dict(referer = LOGIN_URL))
 
     # Scrape url
     result = session_requests.get(URL, headers = dict(referer = URL))
