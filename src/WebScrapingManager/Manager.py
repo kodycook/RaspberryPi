@@ -61,7 +61,7 @@ phoneUsage = makeScraper(
      'PASSWORD':'Master2010'},
     {},
     {'Account Balance':['//*[@id="ctl00_FormContent_FullContentArea_SidebarTop_ServiceStatusViewSwitcher_ctl00_ControlSwitcher_ctl00_AccountOverviewPostpaidMobile_lblTotalOutstanding"]/text()[1]'],
-     'Phone Usage': ['//*[@id="ctl00_FormContent_FullContentArea_TopRowSection_TopRow_ButtonBar_ButtonBarPanelRepeater_ctl01_UsagePostpaidMobile_pnlPostPaidMobile"]/ul/li[1]/strong/span[1]/text()[1]'],
+     'Phone Usage': ['//*[@id="ctl00_FormContent_FullContentArea_TopRowSection_TopRow_ButtonBar_ButtonBarPanelRepeater_ctl01_UsagePostpaidMobile_pnlPostPaidMobile"]/ul/li[1]/strong/span[1]/text()/[0]'],
      'Data Usage': ['//*[@id="ctl00_FormContent_FullContentArea_TopRowSection_TopRow_ButtonBar_ButtonBarPanelRepeater_ctl01_UsagePostpaidMobile_pnlPostPaidMobile"]/ul/li[2]/ul/li/strong/span[1]/text()'],
      'Days Left in Billing Period': ['//*[@id="ctl00_FormContent_FullContentArea_TopRowSection_TopRow_ButtonBar_ButtonBarPanelRepeater_ctl01_UsagePostpaidMobile_pnlPostPaidMobile"]/ul/li[3]/ul/li/span/strong/text()[1]']},
     24
@@ -86,7 +86,10 @@ virgin = makeScraper(
     {'username':'1033332194',
      'password':'master'},
     {},
-    {},
+    {'Frequent Flyer Points':['//*[@id="points-balance"]/div/dl/dd[1]/text()[1]'],
+     'Status Points':['//*[@id="points-balance"]/div/dl/dd[2]/text()[1]'],
+     'Membership Level':['//*[@id="content-a"]/div[2]/div[1]/div[1]/table/tbody/tr[4]/td/text()[1]'],
+     'Renewal Date':['//*[@id="upgradeTierLightbox"]/table[1]/tbody/tr[2]/td[1]/span/text()[1]']},
     6
 )
 
@@ -135,11 +138,14 @@ virgin = makeScraper(
 
 
 
-#print(phoneUsage["URL"])
+
 print("IINET Internet Usage")
 Query.scrape(internetUsage)
 
 print("\n")
 print("Virgin Mobile Usage")
 Query.scrape(phoneUsage)
-# Query.scrape(virgin)
+
+print("\n")
+print("Virgin Frequent Flyer")
+Query.scrape(virgin)
