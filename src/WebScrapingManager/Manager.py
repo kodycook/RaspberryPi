@@ -1,5 +1,5 @@
-#import Scraper
-import Query
+#!/usr/bin/python
+from Query import Query
 # This manager creates a
 
 # TODO: Add a string to search to confirm successful login, eg. "Kody Cook"
@@ -43,9 +43,9 @@ internetUsage = makeScraper(
      'Password':'family5',
      'action:Index':''},
     {},
-    {'Account Balance': ['/html/body/div[3]/div[1]/div/div[1]/div/div/p/span[1]/text()[1]'],
-     'Remaining Internet': ['//*[@id="panels"]/div[2]/article/div[1]/div/div/div[2]/p/text()[1]'],
-     'Days Left in Billing Period':['//*[@id="panels"]/div[2]/article/div[1]/div/p/strong[2]/text()[1]']},
+    {'Account Balance': ['/html/body/div[3]/div[1]/div/div[1]/div/div/p/span[1]/text()'],
+     'Remaining Internet': ['//*[@id="panels"]/div[2]/article/div[1]/div/div/div[2]/p/text()'],
+     'Days Left in Billing Period':['//*[@id="panels"]/div[2]/article/div[1]/div/p/strong[2]/text()']},
     24
 )
 
@@ -60,10 +60,10 @@ phoneUsage = makeScraper(
     {'USER':'masterkcook@hotmail.com',
      'PASSWORD':'Master2010'},
     {},
-    {'Account Balance':['//*[@id="ctl00_FormContent_FullContentArea_SidebarTop_ServiceStatusViewSwitcher_ctl00_ControlSwitcher_ctl00_AccountOverviewPostpaidMobile_lblTotalOutstanding"]/text()[1]'],
-     'Phone Usage': ['//*[@id="ctl00_FormContent_FullContentArea_TopRowSection_TopRow_ButtonBar_ButtonBarPanelRepeater_ctl01_UsagePostpaidMobile_pnlPostPaidMobile"]/ul/li[1]/strong/span[1]/text()/[0]'],
+    {'Account Balance':['//*[@id="ctl00_FormContent_FullContentArea_SidebarTop_ServiceStatusViewSwitcher_ctl00_ControlSwitcher_ctl00_AccountOverviewPostpaidMobile_lblTotalOutstanding"]/text()'],
+     'Phone Usage': ['//*[@id="ctl00_FormContent_FullContentArea_TopRowSection_TopRow_ButtonBar_ButtonBarPanelRepeater_ctl01_UsagePostpaidMobile_pnlPostPaidMobile"]/ul/li[1]/strong/span[1]/text()'],
      'Data Usage': ['//*[@id="ctl00_FormContent_FullContentArea_TopRowSection_TopRow_ButtonBar_ButtonBarPanelRepeater_ctl01_UsagePostpaidMobile_pnlPostPaidMobile"]/ul/li[2]/ul/li/strong/span[1]/text()'],
-     'Days Left in Billing Period': ['//*[@id="ctl00_FormContent_FullContentArea_TopRowSection_TopRow_ButtonBar_ButtonBarPanelRepeater_ctl01_UsagePostpaidMobile_pnlPostPaidMobile"]/ul/li[3]/ul/li/span/strong/text()[1]']},
+     'Days Left in Billing Period': ['//*[@id="ctl00_FormContent_FullContentArea_TopRowSection_TopRow_ButtonBar_ButtonBarPanelRepeater_ctl01_UsagePostpaidMobile_pnlPostPaidMobile"]/ul/li[3]/ul/li/span/strong/text()']},
     24
 )
 
@@ -86,10 +86,10 @@ virgin = makeScraper(
     {'username':'1033332194',
      'password':'master'},
     {},
-    {'Frequent Flyer Points':['//*[@id="points-balance"]/div/dl/dd[1]/text()[1]'],
-     'Status Points':['//*[@id="points-balance"]/div/dl/dd[2]/text()[1]'],
-     'Membership Level':['//*[@id="content-a"]/div[2]/div[1]/div[1]/table/tbody/tr[4]/td/text()[1]'],
-     'Renewal Date':['//*[@id="upgradeTierLightbox"]/table[1]/tbody/tr[2]/td[1]/span/text()[1]']},
+    {'Frequent Flyer Points':['//*[@id="points-balance"]/div/dl/dd[1]/text()'],
+     'Status Points':['//*[@id="points-balance"]/div/dl/dd[2]/text()'],
+     'Membership Level':['//*[@id="content-a"]/div[2]/div[1]/div[1]/table/tbody/tr[4]/td/text()'],
+     'Renewal Date':['//*[@id="upgradeTierLightbox"]/table[1]/tbody/tr[2]/td[1]/span/text()']},
     6
 )
 
@@ -140,12 +140,15 @@ virgin = makeScraper(
 
 
 print("IINET Internet Usage")
-Query.scrape(internetUsage)
+iinetHomeInternet = Query(internetUsage)
+iinetHomeInternet.scrape()
 
 print("\n")
 print("Virgin Mobile Usage")
-Query.scrape(phoneUsage)
+virginMobile = Query(phoneUsage)
+virginMobile.scrape()
 
 print("\n")
 print("Virgin Frequent Flyer")
-Query.scrape(virgin)
+virginFrequentFlyer = Query(virgin)
+virginFrequentFlyer.scrape()
