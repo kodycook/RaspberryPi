@@ -2,51 +2,55 @@ import requests
 from lxml import html
 from bs4 import BeautifulSoup
 
-def scrape(attributes):
+class Query():
 
-    logUrl = attributes["logUrl"]
-    tarUrl = attributes["tarUrl"]
-    actUrl = attributes["actUrl"]
-    form = attributes["statAttr"]
-    authAttr = attributes["authAttr"]
-    vals = attributes["vals"]
+    def __init__(self, attributes):
 
+        self.logUrl = attributes["logUrl"]
+        self.tarUrl = attributes["tarUrl"]
+        self.actUrl = attributes["actUrl"]
+        self.form = attributes["statAttr"]
+        self.authAttr = attributes["authAttr"]
+        self.vals = attributes["vals"]
 
-    session = requests.session()
-
-    login = session.get(logUrl)
-    login_html = html.fromstring(login.text)
-
-    if(actUrl == ""):
-        newUrl = login.url
-    else:
-        tree = html.fromstring(login.text)
-        newUrl = list(set(tree.xpath("//form[@name='{0}']/@action".format(actUrl))))[0]
+    def scrape(self):
 
 
+        session = requests.session()
 
-    # print(form)
+        login = session.get(self.logUrl)
+        login_html = html.fromstring(login.text)
 
-    # print(newUrl)
+        if(self.actUrl == ""):
+            newUrl = login.url
+        else:
+            tree = html.fromstring(login.text)
+            newUrl = list(set(tree.xpath("//form[@name='{0}']/@action".format(self.actUrl))))[0]
 
-    # Perform login
-    result = session.post(newUrl, data = form, headers = dict(referer = newUrl))
 
-    # Scrape url
-    result = session.get(tarUrl, headers = dict(referer = tarUrl))
 
-    # print(result.ok)  # Will tell us if the last request was ok
-    # print(result.status_code)  # Will give us the status from the last request
+        # print(form)
 
-    # print(result.text)
+        # print(newUrl)
 
-    # print("\n")
+        # Perform login
+        result = session.post(newUrl, data = self.form, headers = dict(referer = newUrl))
 
-    tree = html.fromstring(result.text)
+        # Scrape url
+        result = session.get(self.tarUrl, headers = dict(referer = self.tarUrl))
 
-    for key, value in vals.items():
-        scrapedValue = tree.xpath(value[0])[0].strip()
-        print("{0}: {1}".format(key, scrapedValue))
+        # print(result.ok)  # Will tell us if the last request was ok
+        # print(result.status_code)  # Will give us the status from the last request
 
-    session.close()
+        # print(result.text)
+
+        # print("\n")
+
+        tree = html.fromstring(result.text)
+
+        for key, value in self.vals.items():
+            scrapedValue = tree.xpath(value[0])[0].strip()
+            print("{0}: {1}".format(key, scrapedValue))
+
+        session.close()
 
