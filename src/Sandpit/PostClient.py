@@ -1,9 +1,6 @@
 #!/usr/bin/env python
-from bs4 import BeautifulSoup
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from lxml import html
-from lxml import etree
 
 
 
