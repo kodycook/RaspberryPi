@@ -21,6 +21,9 @@ def run():
     client_socket, client_address = server.accept()
     print(client_address, "has connected")
     while 1 == 1:
+        rfile = client_socket.makefile('rb', -1)
+        data_string = rfile.read(
+            int(client_socket.http.client.parse_headers(rfile, _class=http.client.HTTPMessage)['Content-Length']))
         recieved_data = client_socket.recv(1024)
         soup = BeautifulSoup(recieved_data.decode("utf-8"), "lxml")
         ConvertJson(soup.p)
