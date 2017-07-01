@@ -12,10 +12,9 @@ class Query():
         self.form = attributes["statAttr"]
         self.authAttr = attributes["authAttr"]
         self.vals = attributes["vals"]
+        self.debug = True
 
     def scrape(self):
-
-
         session = requests.session()
 
         login = session.get(self.logUrl)
@@ -39,18 +38,17 @@ class Query():
         # Scrape url
         result = session.get(self.tarUrl, headers = dict(referer = self.tarUrl))
 
-        # print(result.ok)  # Will tell us if the last request was ok
-        # print(result.status_code)  # Will give us the status from the last request
+        if self.debug == True:
+            print(result.ok)  # Will tell us if the last request was ok
+            print(result.status_code)  # Will give us the status from the last request
+            print(result.text)
 
-        # print(result.text)
+        else:
+            tree = html.fromstring(result.text)
 
-        # print("\n")
-
-        tree = html.fromstring(result.text)
-
-        for key, value in self.vals.items():
-            scrapedValue = tree.xpath(value[0])[0].strip()
-            print("{0}: {1}".format(key, scrapedValue))
+            for key, value in self.vals.items():
+                scrapedValue = tree.xpath(value[0])[0].strip()
+                print("{0}: {1}".format(key, scrapedValue))
 
         session.close()
 
