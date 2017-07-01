@@ -34,8 +34,12 @@ class PostClient(BaseHTTPRequestHandler):
 
 
 def run():
-    print("Starting Fronius Listener with IP: {0}".format(socket.gethostbyname(socket.gethostname())))
-    server_address = (socket.gethostbyname(socket.gethostname()), 40)
+    ipAdress = socket.gethostbyname(socket.gethostname())
+    if ipAdress == "127.0.0.1":
+        ipAdress = socket.getfqdn()
+
+    print("Starting Fronius Listener with IP: {0}".format(ipAdress))
+    server_address = (ipAdress, 40)
     httpd = HTTPServer(server_address, PostClient)
     httpd.serve_forever()
 
