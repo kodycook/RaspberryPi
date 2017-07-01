@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
+import socket
 
 class PostClient(BaseHTTPRequestHandler):
 
@@ -33,8 +34,8 @@ class PostClient(BaseHTTPRequestHandler):
 
 
 def run():
-    print('Starting Fronius Listener')
-    server_address = ('10.1.1.15', 40)
+    print("Starting Fronius Listener with IP: {0}".format(socket.gethostbyname(socket.gethostname())))
+    server_address = (socket.gethostbyname(socket.gethostname()), 40)
     httpd = HTTPServer(server_address, PostClient)
     httpd.serve_forever()
 
