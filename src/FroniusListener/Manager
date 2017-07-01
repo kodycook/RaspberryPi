@@ -1,3 +1,0 @@
-from PostClient import PostClient
-
-FroniusListener = PostClient()
