@@ -22,19 +22,17 @@ def run():
     print(client_address, "has connected")
     while 1 == 1:
         recieved_data = client_socket.recv(1024)
-        ConvertJson(recieved_data.decode("utf-8"))
+        soup = BeautifulSoup(recieved_data.decode("utf-8"), "lxml")
+        ConvertJson(soup.p)
 
 
 
 def ConvertJson(text):
-    # print(text)
+    data = json.loads(text)
 
-    soup = BeautifulSoup(text, "lxml")
-    # print(soup.prettify())
-    print(soup.p)
 
-    # print("Timestamp: {0}".format(data["Head"]["Timestamp"]))
-    # print("Current Production: {0}{1}".format(data["Body"]["PAC"]["Values"]["1"],data["Body"]["PAC"]["Unit"]))
-    # print("Today's Yeild: {0}{1}".format(data["Body"]["DAY_ENERGY"]["Values"]["1"],data["Body"]["DAY_ENERGY"]["Unit"]))
+    print("Timestamp: {0}".format(data["Head"]["Timestamp"]))
+    print("Current Production: {0}{1}".format(data["Body"]["PAC"]["Values"]["1"],data["Body"]["PAC"]["Unit"]))
+    print("Today's Yeild: {0}{1}".format(data["Body"]["DAY_ENERGY"]["Values"]["1"],data["Body"]["DAY_ENERGY"]["Unit"]))
     #print(data[""])
     #print(data[""])
