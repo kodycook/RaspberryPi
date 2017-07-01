@@ -44,7 +44,7 @@ internetUsage = makeScraper(
      'action:Index':''},
     {},
     {'Account Balance': ['/html/body/div[3]/div[1]/div/div[1]/div/div/p/span[1]/text()'],
-     'Remaining Internet': ['//*[@id="panels"]/div[2]/article/div[1]/div/div/div[2]/p/text()'],
+     'Data Usage': ['//*[@id="panels"]/div[2]/article/div[1]/div/div/div[2]/p/text()'],
      'Days Left in Billing Period':['//*[@id="panels"]/div[2]/article/div[1]/div/p/strong[2]/text()']},
     24
 )
@@ -93,62 +93,41 @@ virgin = makeScraper(
     6
 )
 
-# qantas = makeScraper(
-#     "Virgin Frequent Flyer",
-#     5,
-#     "",
-#     "",
-#     {'username':'1033332194',
-#      'password':'master'},
-#     {},
-#     {},
-#     6
-# )
+qantas = makeScraper(
+    "Qantas Frequent Flyer",
+    5,
+    "https://api.services.qantasloyalty.com/auth/member/login",
+    "https://www.qantas.com/fflyer/do/dyns/auth/youraccount/yourAccount",
+    "",
+    {'lastName':'COOK',
+     'memberId':'1915003469',
+     'pin':'0951'},
+    {},
+    {},
+    6
+)
 
+
+
+
+
+
+
+# print("IINET Internet Usage")
+# iinetHomeInternet = Query(internetUsage)
+# iinetHomeInternet.scrape()
 #
-# # movies = makeScraper("Movies",
-# #                          2,
-# #                          "http://www.primewire.ag/",
-# #                          "http://www.primewire.ag/",
-# #                          {},
-# #                          {},
-# #                          24
-# #                          )
+# print("\n")
+# print("Virgin Mobile Usage")
+# virginMobile = Query(phoneUsage)
+# virginMobile.scrape()
 #
-# yelp = makeScraper("Yelp",
-#                          5,
-#                          "https://www.yelp.com.au/login",
-#                          "email",
-#                          "password",
-#                          "masterkcook@hotmail.com",
-#                          "master2010",
-#                          24
-#                          )
-#
-# arduino = makeScraper("Arduino",
-#                          6,
-#                          "https://id.arduino.cc/auth/login/?go=1",
-#                          "username",
-#                          "password",
-#                          "kodycook",
-#                          "master",
-#                          24
-#                          )
-
-
-
-
-
-print("IINET Internet Usage")
-iinetHomeInternet = Query(internetUsage)
-iinetHomeInternet.scrape()
+# print("\n")
+# print("Virgin Frequent Flyer")
+# virginFrequentFlyer = Query(virgin)
+# virginFrequentFlyer.scrape()
 
 print("\n")
-print("Virgin Mobile Usage")
-virginMobile = Query(phoneUsage)
-virginMobile.scrape()
-
-print("\n")
-print("Virgin Frequent Flyer")
-virginFrequentFlyer = Query(virgin)
-virginFrequentFlyer.scrape()
+print("Qantas Frequent Flyer")
+QantasFrequentFlyer = Query(qantas)
+QantasFrequentFlyer.scrape()
