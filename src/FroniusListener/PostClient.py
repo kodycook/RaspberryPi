@@ -34,9 +34,11 @@ class PostClient(BaseHTTPRequestHandler):
 
 
 def run():
-    ipAdress = socket.gethostbyname(socket.gethostname())
-    if ipAdress == "127.0.1.1":
-        ipAdress = socket.getfqdn()
+    # Creating a temporary socket to retrieve the local IPv4 address
+    tempSocket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    tempSocket.connect(("8.8.8.8", 80))
+    ipAdress = tempSocket.getsockname()[0]
+    tempSocket.close()
 
     print("Starting Fronius Listener with IP: {0}".format(ipAdress))
     server_address = (ipAdress, 40)

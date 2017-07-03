@@ -44,7 +44,10 @@ internetUsage = makeScraper(
      'action:Index':''},
     {},
     {'Account Balance': ['/html/body/div[3]/div[1]/div/div[1]/div/div/p/span[1]/text()'],
-     'Data Usage': ['//*[@id="panels"]/div[2]/article/div[1]/div/div/div[2]/p/text()'],
+     'Data Usage': ['//*[@id="panels"]/div[2]/article/div[1]/div/div/div[2]/p/text()',
+                    '//*[@id="panels"]/div[2]/article/div[1]/div/div/div[2]/p/abbr[1]/text()',
+                    '//*[@id="panels"]/div[2]/article/div[1]/div/div/div[2]/p/text()[2]',
+                    '//*[@id="panels"]/div[2]/article/div[1]/div/div/div[2]/p/abbr[2]/text()'],
      'Days Left in Billing Period':['//*[@id="panels"]/div[2]/article/div[1]/div/p/strong[2]/text()']},
     24
 )
@@ -113,21 +116,21 @@ qantas = makeScraper(
 
 
 
-# print("IINET Internet Usage")
-# iinetHomeInternet = Query(internetUsage)
-# iinetHomeInternet.scrape()
-#
-# print("\n")
-# print("Virgin Mobile Usage")
-# virginMobile = Query(phoneUsage)
-# virginMobile.scrape()
-#
-# print("\n")
-# print("Virgin Frequent Flyer")
-# virginFrequentFlyer = Query(virgin)
-# virginFrequentFlyer.scrape()
+print("IINET Internet Usage")
+iinetHomeInternet = Query(internetUsage)
+iinetHomeInternet.scrape()
 
 print("\n")
-print("Qantas Frequent Flyer")
-QantasFrequentFlyer = Query(qantas)
-QantasFrequentFlyer.scrape()
+print("Virgin Mobile Usage")
+virginMobile = Query(phoneUsage)
+virginMobile.scrape()
+
+print("\n")
+print("Virgin Frequent Flyer")
+virginFrequentFlyer = Query(virgin)
+virginFrequentFlyer.scrape()
+
+# print("\n")
+# print("Qantas Frequent Flyer")
+# QantasFrequentFlyer = Query(qantas)
+# QantasFrequentFlyer.scrape()

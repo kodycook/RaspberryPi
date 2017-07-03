@@ -12,7 +12,7 @@ class Query():
         self.form = attributes["statAttr"]
         self.authAttr = attributes["authAttr"]
         self.vals = attributes["vals"]
-        self.debug = True
+        self.debug = False
 
     def scrape(self):
         session = requests.session()
@@ -47,7 +47,11 @@ class Query():
             tree = html.fromstring(result.text)
 
             for key, value in self.vals.items():
-                scrapedValue = tree.xpath(value[0])[0].strip()
+                scrapedValue = ""
+                for i in range(0, len(value)):
+                    scrapedValue += tree.xpath(value[i])[0].strip()
+                    if i != len(value)-1:
+                        scrapedValue += " "
                 print("{0}: {1}".format(key, scrapedValue))
 
         session.close()
