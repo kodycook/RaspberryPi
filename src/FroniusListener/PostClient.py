@@ -28,7 +28,7 @@ class PostClient(BaseHTTPRequestHandler):
             self.send_header('Content-type', 'text/html')
             self.end_headers()
         print()
-        self.data_string = self.rfile.read(int(self.headers['Content-Length']))
+        self.data_string = self.rfile.read(int(self.headers['Content-Length'])).decode("utf-8")
         ConvertJson(self.data_string)
 
 
