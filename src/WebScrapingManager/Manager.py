@@ -58,13 +58,14 @@ phoneUsage = makeScraper(
     "Mobile Usage",
     2,
     "https://www.virginmobile.com.au/signon/virginmobile/MyAccount.sec?",
-    "https://www.virginmobile.com.au/myaccount/secure/Dashboard/",
+    "https://www.virginmobile.com.au/myaccount/secure/dashboard/",
     "",
     {'USER':'masterkcook@hotmail.com',
      'PASSWORD':'Master2010'},
     {},
-    {'Account Balance':['//*[@id="ctl00_FormContent_FullContentArea_SidebarTop_ServiceStatusViewSwitcher_ctl00_ControlSwitcher_ctl00_AccountOverviewPostpaidMobile_lblTotalOutstanding"]/text()'],
-     'Phone Usage': ['//*[@id="ctl00_FormContent_FullContentArea_TopRowSection_TopRow_ButtonBar_ButtonBarPanelRepeater_ctl01_UsagePostpaidMobile_pnlPostPaidMobile"]/ul/li[1]/strong/span[1]/text()'],
+    {'Outstanding Balance':['//*[@id="ctl00_FormContent_FullContentArea_MiddleContent_divPostPaidMobileSummarySection"]/div[1]/div[1]/h2/text()'],
+     'Phone Usage': ['//*[@id="ctl00_FormContent_FullContentArea_MiddleContent_divPostPaidMobileSummarySection"]/article/vma-dashboard-container/div/div[1]/div[1]/vma-accordion-progressbar/div/div/div/div/div/accordion/accordion-group/div/div[1]/div/div/div/div[1]/div/div/div[2]/strong/text()',
+                     '//*[@id="ctl00_FormContent_FullContentArea_MiddleContent_divPostPaidMobileSummarySection"]/article/vma-dashboard-container/div/div[1]/div[1]/vma-accordion-progressbar/div/div/div/div/div/accordion/accordion-group/div/div[1]/div/div/div/div[1]/div/div/div[2]/text()'],
      'Data Usage': ['//*[@id="ctl00_FormContent_FullContentArea_TopRowSection_TopRow_ButtonBar_ButtonBarPanelRepeater_ctl01_UsagePostpaidMobile_pnlPostPaidMobile"]/ul/li[2]/ul/li/strong/span[1]/text()'],
      'Days Left in Billing Period': ['//*[@id="ctl00_FormContent_FullContentArea_TopRowSection_TopRow_ButtonBar_ButtonBarPanelRepeater_ctl01_UsagePostpaidMobile_pnlPostPaidMobile"]/ul/li[3]/ul/li/span/strong/text()']},
     24
@@ -111,26 +112,50 @@ qantas = makeScraper(
 )
 
 
+primewire = makeScraper(
+    "Mobile Usage",
+    2,
+    "https://thevideo.me/bnrfiudhjxsv",
+    "https://thevideo.me/bnrfiudhjxsv",
+    "",
+    {'_vhash':'i1102394cE',
+     'gfk':'i22abd2449',
+     'op':'download1',
+     'usr_login':'',
+     'id':'bnrfiudhjxsv',
+     'fname':'Guardians.of.the.Galaxy.2014.720p.BluRay.x264.YIFY.mp4',
+     'referer':'https://tvad.me/bnrfiudhjxsv',
+     'inhu':'foff',
+     'imhuman':''},
+    {},
+    {},
+    24
+)
 
 
 
 
 
-print("IINET Internet Usage")
-iinetHomeInternet = Query(internetUsage)
-iinetHomeInternet.scrape()
+# print("IINET Internet Usage")
+# iinetHomeInternet = Query(internetUsage)
+# iinetHomeInternet.scrape()
 
-print("\n")
-print("Virgin Mobile Usage")
-virginMobile = Query(phoneUsage)
-virginMobile.scrape()
+# print("\n")
+# print("Virgin Mobile Usage")
+# virginMobile = Query(phoneUsage)
+# virginMobile.scrape()
 
-print("\n")
-print("Virgin Frequent Flyer")
-virginFrequentFlyer = Query(virgin)
-virginFrequentFlyer.scrape()
+# print("\n")
+# print("Virgin Frequent Flyer")
+# virginFrequentFlyer = Query(virgin)
+# virginFrequentFlyer.scrape()
 
 # print("\n")
 # print("Qantas Frequent Flyer")
 # QantasFrequentFlyer = Query(qantas)
 # QantasFrequentFlyer.scrape()
+
+print("\n")
+print("Login to Primewire")
+QantasFrequentFlyer = Query(primewire)
+QantasFrequentFlyer.scrape()

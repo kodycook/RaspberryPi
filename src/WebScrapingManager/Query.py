@@ -1,4 +1,5 @@
 import requests
+from bs4 import BeautifulSoup
 from lxml import html
 
 class Query():
@@ -11,7 +12,7 @@ class Query():
         self.form = attributes["statAttr"]
         self.authAttr = attributes["authAttr"]
         self.vals = attributes["vals"]
-        self.debug = False
+        self.debug = True
 
     def scrape(self):
         session = requests.session()
@@ -26,16 +27,19 @@ class Query():
             newUrl = list(set(tree.xpath("//form[@name='{0}']/@action".format(self.actUrl))))[0]
 
 
+        soup = BeautifulSoup(login.text, 'lxml')
+        self.form['hash'] = soup.find_all(attrs={"name" : "hash"})[0].get("value")
 
-        # print(form)
+        print(self.form)
 
         # print(newUrl)
 
         # Perform login
         result = session.post(newUrl, data = self.form, headers = dict(referer = newUrl))
+        # print(result.content)
 
         # Scrape url
-        result = session.get(self.tarUrl, headers = dict(referer = self.tarUrl))
+        # result = session.get(self.tarUrl, headers = dict(referer = self.tarUrl))
 
         if self.debug == True:
             print(result.ok)  # Will tell us if the last request was ok
@@ -48,6 +52,7 @@ class Query():
             for key, value in self.vals.items():
                 scrapedValue = ""
                 for i in range(0, len(value)):
+                    print(tree.xpath(value[i]))
                     scrapedValue += tree.xpath(value[i])[0].strip()
                     if i != len(value)-1:
                         scrapedValue += " "
