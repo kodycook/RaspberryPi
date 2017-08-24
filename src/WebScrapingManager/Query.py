@@ -36,7 +36,7 @@ class Query():
 
         # Perform login
         result = session.post(newUrl, data = self.form, headers = dict(referer = newUrl))
-        # print(result.content)
+        print(result.headers)
 
         # Scrape url
         # result = session.get(self.tarUrl, headers = dict(referer = self.tarUrl))
